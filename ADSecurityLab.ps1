@@ -28,10 +28,6 @@ function Create-AD {
 #>
 
 
-Write-Output "[+] Changing administrator password to be Password123 "
-net user "administrator" Password123
-
-
 Write-Output "[+] Installing Windows AD Domain Services and setting up domain"
 Install-WindowsFeature –Name AD-Domain-Services -IncludeManagementTools
 Add-windowsfeature RSAT-ADDS
