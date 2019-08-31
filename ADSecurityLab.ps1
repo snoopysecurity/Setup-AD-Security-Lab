@@ -1,3 +1,4 @@
+
 <#
     File: ADSecurityLab.ps1
     Author: Sam Sanoop (@snoopysecurity)
@@ -11,7 +12,7 @@ function Create-AD {
 
 <#
 .SYNOPSIS
-    Installs Active Directory Services and sets up a domain called adinsecurelab.local. Note: Only tested on Windows Server 2012
+    Installs Active Directory Services and sets up a domain called adinsecurelab.local
  
 .EXAMPLE
      Create-AD
@@ -23,8 +24,7 @@ function Create-AD {
     None
  
 .NOTES
-    Author:  Sam Saopp
-    Twitter: @snoopysecurity
+    Author:  @snoopysecurity
 #>
 
 
@@ -54,8 +54,7 @@ function Create-Domain-Data {
 
 <#
 .SYNOPSIS
-    Create Users and set up Active Directory misconfigurations. Note: Only tested on Windows Server 2012
- 
+    Create Users and set up Active Directory misconfigurations
  
 .EXAMPLE
      Create-Domain-Data
@@ -67,8 +66,7 @@ function Create-Domain-Data {
     None
  
 .NOTES
-    Author:  Sam Saopp
-    Twitter: @snoopysecurity
+    Author:  @snoopysecurity
 #>
 
 Write-Output "[+] Creating Users and setting up Active Directory misconfigurations"
@@ -143,8 +141,8 @@ $Acl.AddAccessRule($NewAccessRule)
 Set-ACL "AD:\$ou" -AclObject $acl
 
 
-#Test with : Get-ObjectAcl -SamAccountName "Managers" -ResolveGUIDs | ? {$_.ActiveDirectoryRights -eq "WriteOwner"}
-#Get-ACL "AD:\OU=Managers,DC=adinsecurelab,DC=local").Access |
+# Test with : Get-ObjectAcl -SamAccountName "Managers" -ResolveGUIDs | ? {$_.ActiveDirectoryRights -eq "WriteOwner"}
+# Get-ACL "AD:\OU=Managers,DC=adinsecurelab,DC=local").Access |
 # Where-Object {$_.IdentityReference -eq "adinsecurelab\Katie.Haggerty"}  
 
 Write-Output "[+] Creating Passwords in SYSVOL"
@@ -155,7 +153,7 @@ Write-Output "net user /add Olivia.Weidman St4SDFxSS11434DF" > "C:\Windows\SYSVO
 
 gpupdate
 
-#Faking creation of Groups.xml since this cannot be done command line
+# Faking creation of Groups.xml since this cannot be done command line
 $Groups_xml = @"
 <?xml version="1.0" encoding="utf-8"?>
 <Groups clsid="{3125E937-EB16-4b4c-9934-544FC6D24D26}"><User clsid="{DF5F1855-51E5-4d24-8B1A-D9BDE98BA1D1}" name="Katie.H_Backup" image="2" changed="2019-08-27 21:07:40" uid="{0BF14BE4-4AAD-44DD-933C-6DA54774FA2E}"><Properties action="U" newName="" fullName="Katie" description="Katie Backup Admin Account For Temp Use" cpassword="JCzwVAEdHyQeEAHXGNhtuSu9nOdiLr9x3kzmXGWd9xo" changeLogon="0" noChange="0" neverExpires="0" acctDisabled="0" userName="Katie.Hagggerty"/></User>
