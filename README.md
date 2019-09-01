@@ -8,3 +8,5 @@ Scripts to create a Active Directory Lab with security misconfigurations and vul
 * Pass the hash
 * ACL Vulnerabilities
 * Passwords in SYSVOL
+* Passwords in Registry 
+* AlwaysInstallElevated Misconfiguration
