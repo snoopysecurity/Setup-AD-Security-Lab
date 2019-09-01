@@ -161,4 +161,19 @@ $sysvolpath = $filepath.BaseName[1]
 $filepath = "$groupspath$sysvolpath\"
 mkdir "$filepath\MACHINE\Preferences\Groups\"
 Write-Output "$Groups_xml"  > "$filepath\MACHINE\Preferences\Groups\Groups.xml"
+
+echo "[+] Inserting password in registry"
+Set-ItemProperty -Path HKLM:\SYSTEM\Setup -Name Pritesh -Value "PaSS12345678:UGFTUzEyMzQ1Njc4"
+
+
+echo "[+] Enabling AlwaysInstallElevated registry key"
+
+$objUser = New-Object System.Security.Principal.NTAccount("adinsecurelab.local", "Joe.Standing") 
+$strSID = $objUser.Translate([System.Security.Principal.SecurityIdentifier]) 
+$userSID = $strSID.Value
+New-Item -Path HKLM:\SOFTWARE\Policies\Microsoft\Windows\Installer 
+Set-ItemProperty -Path HKLM:\SOFTWARE\Policies\Microsoft\Windows\Installer -Name AlwaysInstallElevated -Value 0x00000001 -Force
+New-Item -Path HKU:\$userSID\SOFTWARE\Policies\Microsoft\Windows\Installer 
+Set-ItemProperty -Path HKU:\$userSID\SOFTWARE\Policies\Microsoft\Windows\Installer -Name AlwaysInstallElevated -Value 0x00000001 -Force
+
 }
